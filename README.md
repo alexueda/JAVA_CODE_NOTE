@@ -27,4 +27,4 @@ ChessGame clonedGame = this.clone();
 
 なおclone()には２通りのメソッドが存在する。
 - シャローコピィ (Shallow Copy)
--ディープコピィ (Deep Copy)
+- ディープコピィ (Deep Copy)
