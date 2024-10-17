@@ -8,7 +8,6 @@ toJson()はJavaオブジェクトをJSONオブジェクトに変換するため�
 
 # Example Code
 '''Java
-
 import com.google.gson.Gson;
 
 public class GsonExample {
@@ -30,8 +29,6 @@ class Person {
         this.age = age;
     }
 }
-
-'''
 
 ## fromJson()
 fromJson()はこの逆にJSONからJavaへ変換するためのメソッド
@@ -56,4 +53,3 @@ class Person {
     String name;
     int age;
 }
-'''
