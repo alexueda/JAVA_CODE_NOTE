@@ -67,52 +67,6 @@ Spark.staticFiles.location("web");
 これで、サーバーにリクエストを送信すると、URL パスと一致するファイルが見つかった場合、そのファイルの内容が返されます。
 
 ## 完全なサーバーの例
-静的ファイルと名前リストサービスエンドポイントをホスティングするための完全なサーバーコードのリストは次のとおりです。
-
-```java
-import com.google.gson.Gson;
-import spark.*;
-import java.util.*;
-
-public class ServerExample {
-    private ArrayList<String> names = new ArrayList<>();
-
-    public static void main(String[] args) {
-        new ServerExample().run();
-    }
-
-    private void run() {
-        // サーバーがリッスンするポートを指定
-        Spark.port(8080);
-
-        // 静的ファイルをホスティングするためのディレクトリを登録
-        Spark.externalStaticFileLocation("public");
-
-        // メソッド参照構文を使用して各エンドポイントのハンドラーを登録
-        Spark.post("/name/:name", this::addName);
-        Spark.get("/name", this::listNames);
-        Spark.delete("/name/:name", this::deleteName);
-    }
-
-    private Object addName(Request req, Response res) {
-        names.add(req.params(":name"));
-        return listNames(req, res);
-    }
-
-    private Object listNames(Request req, Response res) {
-        res.type("application/json");
-        return new Gson().toJson(Map.of("name", names));
-    }
-
-    private Object deleteName(Request req, Response res) {
-        names.remove(req.params(":name"));
-        return listNames(req, res);
-    }
-}
-```
-
-
-# 完全なサーバーの例
 
 静的ファイルと名前リストサービスエンドポイントをホスティングするための完全なサーバーコードのリストです。
 
