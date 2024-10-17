@@ -15,10 +15,8 @@ import com.google.gson.Gson;
 public class GsonExample {
     public static void main(String[] args) {
         Gson gson = new Gson();
-        
         // サンプルオブジェクトを作成
         Person person = new Person("John", 25);
-        
         // オブジェクトをJSONに変換
         String json = gson.toJson(person);
         System.out.println(json);  // 出力: {"name":"John","age":25}
@@ -28,7 +26,6 @@ public class GsonExample {
 class Person {
     private String name;
     private int age;
-
     public Person(String name, int age) {
         this.name = name;
         this.age = age;
@@ -46,10 +43,8 @@ import com.google.gson.Gson;
 public class GsonExample {
     public static void main(String[] args) {
         Gson gson = new Gson();
-        
         // JSON文字列
         String json = "{\"name\":\"John\",\"age\":25}";
-        
         // JSONをオブジェクトに変換
         Person person = gson.fromJson(json, Person.class);
         System.out.println(person.name + ", " + person.age);  // 出力: John, 25
