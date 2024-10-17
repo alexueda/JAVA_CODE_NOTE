@@ -219,6 +219,114 @@ public class ClientExample {
 
 他にも、リクエストボディを追加する方法、エラーハンドリングなどの例があり、Gson の型アダプタを使用してオブジェクトのシリアライズ方法を制御することもできます。
 
-... [続きの翻訳をさらに追加します]
+
+# リクエストボディとヘッダーの作成
+
+HTTP 本文やヘッダーを HttpURLConnection クラスで送信するには、まず `http.setDoOutput` を true に設定する必要があります。次に、`addRequestProperty` を使用してヘッダーを設定したり、`getOutputStream` から返されたストリームを使用してボディを送信することができます。
+
+```java
+// データの書き出しを指定
+http.setDoOutput(true);
+
+// ヘッダーを書き出し
+http.addRequestProperty("Content-Type", "application/json");
+
+// ボディを書き出し
+var body = Map.of("name", "joe", "type", "cat");
+try (var outputStream = http.getOutputStream()) {
+    var jsonBody = new Gson().toJson(body);
+    outputStream.write(jsonBody.getBytes());
+}
+```
+
+## 簡単な Curl の実装
+Web クライアントの例を拡張し、簡単なバージョンの Curl を実装できます。この例では、コマンドラインパラメータから HTTP メソッド、URL、およびボディを読み取ります。これらの情報を使用して HTTP リクエストを行い、レスポンスを受け取ります。
+
+```java
+public class ClientCurlExample {
+    public static void main(String[] args) throws Exception {
+        if (args.length >= 2) {
+            var method = args[0];
+            var url = args[1];
+            var body = args.length == 3 ? args[2] : "";
+
+            HttpURLConnection http = sendRequest(url, method, body);
+            receiveResponse(http);
+        } else {
+            System.out.println("ClientCurlExample <method> <url> [<body>]");
+        }
+    }
+
+    private static HttpURLConnection sendRequest(String url, String method, String body) throws URISyntaxException, IOException {
+        URI uri = new URI(url);
+        HttpURLConnection http = (HttpURLConnection) uri.toURL().openConnection();
+        http.setRequestMethod(method);
+        writeRequestBody(body, http);
+        http.connect();
+        System.out.printf("= Request =========
+[%s] %s
+
+%s
+
+", method, url, body);
+        return http;
+    }
+
+    private static void writeRequestBody(String body, HttpURLConnection http) throws IOException {
+        if (!body.isEmpty()) {
+            http.setDoOutput(true);
+            try (var outputStream = http.getOutputStream()) {
+                outputStream.write(body.getBytes());
+            }
+        }
+    }
+
+    private static void receiveResponse(HttpURLConnection http) throws IOException {
+        var statusCode = http.getResponseCode();
+        var statusMessage = http.getResponseMessage();
+
+        Object responseBody = readResponseBody(http);
+        System.out.printf("= Response =========
+[%d] %s
+
+%s
+
+", statusCode, statusMessage, responseBody);
+    }
+
+    private static Object readResponseBody(HttpURLConnection http) throws IOException {
+        Object responseBody = "";
+        try (InputStream respBody = http.getInputStream()) {
+            InputStreamReader inputStreamReader = new InputStreamReader(respBody);
+            responseBody = new Gson().fromJson(inputStreamReader, Map.class);
+        }
+        return responseBody;
+    }
+}
+```
+
+上記の例では、エコーサーバーを起動すると、簡単な Curl クライアントを使用してさまざまな HTTP サービスリクエストを作成できます。
+
+### 実行例
+```bash
+➜  java -cp ../../lib/gson-2.10.1.jar ClientCurlExample.java POST 'http://localhost:8080/echo' '{"name":"joe", "count":3}'
+= Request =========
+[POST] http://localhost:8080/echo
+
+{"name":"joe", "count":3}
+
+= Response =========
+[200] OK
+
+{name=joe, count=3.0}
+```
+
+## 理解するべきこと
+- サーバーコードの例（Ticket to Ride）
+- メインサーバークラスの作成
+- GET および POST リクエスト用の HTTP ハンドラーの作成
+- FileHandler を使用してテスト Web ページの実装
+- Web クライアントの作成
+
 
 
