@@ -1,12 +1,12 @@
-#GSONとは
+# GSONとは
 GSONは、Googleが提供するJSONデータとJavaオブジェクトを相互に変換するためのライブラリです。もっと簡単に表現すると、Javaオブジェクト（Javaで作った情報）をJSON形式（特定の文字表現）に変換してくれます。
 Gsonを使う場合に重要なのは、GsonクラスのtoJson()メソッドとfromJson()メソッドの2つだけです。
 もちろん、GSONを使用する際にはimport com.google.gson.Gson;を忘れずに。
 
-##toJson()
+## toJson()
 toJson()はJavaオブジェクトをJSONオブジェクトに変換するためのメソッドです。
 
-#Example Code
+# Example Code
 '''Java
 
 import com.google.gson.Gson;
@@ -33,7 +33,7 @@ class Person {
 
 '''
 
-##fromJson()
+## fromJson()
 fromJson()はこの逆にJSONからJavaへ変換するためのメソッド
 
 Example Code
