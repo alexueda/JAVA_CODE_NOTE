@@ -10,6 +10,7 @@ Gsonを使う場合に重要なのは、`Gson`クラスの`toJson()`メソッド
 
 ### Example Code
 '''Java
+
 import com.google.gson.Gson;
 
 public class GsonExample {
@@ -31,6 +32,7 @@ class Person {
         this.age = age;
     }
 }
+
 '''
 
 ##`fromJson():`
@@ -38,8 +40,8 @@ class Person {
 
 ### Example Code
 '''Java
-import com.google.gson.Gson;
 
+import com.google.gson.Gson;
 public class GsonExample {
     public static void main(String[] args) {
         Gson gson = new Gson();
