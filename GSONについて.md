@@ -7,7 +7,7 @@ Gsonを使う場合に重要なのは、GsonクラスのtoJson()メソッドとf
 toJson()はJavaオブジェクトをJSONオブジェクトに変換するためのメソッドです。
 
 # Example Code
-'''Java
+```Java
 import com.google.gson.Gson;
 
 public class GsonExample {
@@ -29,12 +29,12 @@ class Person {
         this.age = age;
     }
 }
-
+```
 ## fromJson()
 fromJson()はこの逆にJSONからJavaへ変換するためのメソッド
 
 Example Code
-'''Java
+```Java
 
 import com.google.gson.Gson;
 
@@ -53,3 +53,4 @@ class Person {
     String name;
     int age;
 }
+```
