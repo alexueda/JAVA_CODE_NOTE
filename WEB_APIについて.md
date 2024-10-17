@@ -220,7 +220,7 @@ public class ClientExample {
 他にも、リクエストボディを追加する方法、エラーハンドリングなどの例があり、Gson の型アダプタを使用してオブジェクトのシリアライズ方法を制御することもできます。
 
 
-# リクエストボディとヘッダーの作成
+## リクエストボディとヘッダーの作成
 
 HTTP 本文やヘッダーを HttpURLConnection クラスで送信するには、まず `http.setDoOutput` を true に設定する必要があります。次に、`addRequestProperty` を使用してヘッダーを設定したり、`getOutputStream` から返されたストリームを使用してボディを送信することができます。
 
